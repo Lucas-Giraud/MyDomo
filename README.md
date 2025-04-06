@@ -2,7 +2,8 @@ Projet de programmation mobile :
 
 Une application permettant de controler les volets, la lumières et la porte de garage d'une maison à distance.
 
-Langage : Kotlin Auteur : Lucas Giraud
+Langage : Kotlin 
+Auteur : Lucas Giraud
 
 Fonctionnalités :
 - Créer un compte et se connecter;
