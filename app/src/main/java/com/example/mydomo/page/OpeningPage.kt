@@ -18,18 +18,18 @@ class OpeningPage : AppCompatActivity() {
 
     private lateinit var progressBar: ProgressBar
     private var progress : Float = 0.0f
-    private val handler = Handler(Looper.getMainLooper()) // Valeur entre 0.0 et 1.0
+    private val handler = Handler(Looper.getMainLooper())
     private var isRunning = false
-    private var direction = 0  // 1 = ouverture, -1 = fermeture
-    private val interval = 50L // chaque tick = 50ms
-    private val duration = 7000L // durée totale pour ouverture/fermeture
-    private val totalSteps = duration / interval
-    private val stepSize = 1.0f / totalSteps // ≈ 0.00714
+    private var direction = 0
+    private val interval = 50L
+    private var duration : Long = 0L
+    private var totalSteps = 0L
+    private var stepSize = 0.0f
 
     private val updateRunnable = object : Runnable {
         override fun run() {
             if (isRunning) {
-                progress += stepSize  * direction // Vitesse de déplacement
+                progress += stepSize  * direction
                 progress = progress.coerceIn(0.0f, 1.0f)
                 progressBar.progress = (progress * 100).toInt()
 
@@ -53,6 +53,15 @@ class OpeningPage : AppCompatActivity() {
         progress = intent.getFloatExtra("progress", 0.0f)
         findViewById<TextView>(R.id.lblDevice).text = deviceName
 
+        val id = (deviceID.split(" ")[1]).toFloat()
+        if((id >= 1.1f && id <= 1.8f) || (id >= 2.1f && id <= 2.3f) || id==2.7f || id==2.8f){
+            duration = 7000L
+        }
+        else{
+            duration = 4000L
+        }
+        totalSteps = duration / interval
+        stepSize = 1.0f / totalSteps
         progressBar = findViewById(R.id.progressBar)
         progressBar.max = 100
         progressBar.progress = (progress * 100).toInt()
